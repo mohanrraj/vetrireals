@@ -1,0 +1,12 @@
+# Allow all crawlers to access all pages
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://vetri-reals.vercel.app/sitemap.xml
+
+# Disallow crawling of admin and API routes
+Disallow: /admin/
+Disallow: /api/
+
+# Crawl-delay: 10  # Uncomment and adjust if needed to limit crawl rate

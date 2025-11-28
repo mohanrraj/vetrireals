@@ -1,0 +1,285 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { MessageCircle, Menu, X, Home, Info, Phone, Briefcase } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter, usePathname } from 'next/navigation'
+import { NavDropdown } from './NavDropdown'
+
+interface DropdownItem {
+  label: string
+  href: string
+  description?: string
+  icon?: React.ReactNode
+}
+
+interface NavItem {
+  name: string
+  href: string
+  isDropdown?: boolean
+  items?: DropdownItem[][]
+}
+
+const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const router = useRouter()
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault()
+      if (pathname !== '/') {
+        router.push('/' + href)
+      } else {
+        const element = document.querySelector(href)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }
+      setIsMobileMenu(false)
+      setOpenDropdown(null)
+    } else if (href !== '#') {
+      setIsMobileMenu(false)
+      setOpenDropdown(null)
+    }
+  }
+
+  const projectItems: DropdownItem[][] = [
+    [
+      {
+        label: 'Ongoing Projects',
+        href: '/#projects',
+        description: 'View our current developments',
+        icon: <Briefcase size={16} />
+      },
+      {
+        label: 'Completed Projects',
+        href: '/completed-projects',
+        description: 'Explore our successful deliveries',
+        icon: <Briefcase size={16} />
+      }
+    ]
+  ]
+
+  const aboutItems: DropdownItem[][] = [
+    [
+      {
+        label: 'Founder',
+        href: '/founder-details',
+        description: 'Learn about our founder',
+        icon: <Info size={16} />
+      },
+      {
+        label: 'SVR Associates',
+        href: '/#about',
+        description: 'About our company',
+        icon: <Info size={16} />
+      }
+    ]
+  ]
+
+  const navItems: NavItem[] = [
+    { name: 'Home', href: '/' },
+    { name: 'Projects', href: '#', isDropdown: true, items: projectItems },
+    { name: 'About Us', href: '#', isDropdown: true, items: aboutItems },
+    { name: 'Contact', href: '#contact' },
+  ]
+
+  const setIsMobileMenu = (isOpen: boolean) => {
+    setIsMobileMenuOpen(isOpen)
+    if (!isOpen) {
+      setOpenDropdown(null)
+    }
+  }
+
+  return (
+    <motion.nav
+      initial={{ y: 0 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-600/90 via-pink-500/90 to-blue-600/90 backdrop-blur-sm shadow-lg w-full"
+    >
+      <div className="w-full px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20 w-full max-w-7xl mx-auto">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 overflow-hidden rounded-full ring-2 ring-white group-hover:ring-4 transition-all shadow-lg">
+              <Image
+                src="/logo/logo.jpg"
+                alt="SVR Associates Logo"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <span className="text-lg sm:text-xl font-bold text-white">
+              SVR Associates
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-2">
+            {navItems.map((item, index) => {
+              if (item.isDropdown && item.items) {
+                return (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative"
+                  >
+                    <NavDropdown
+                      title={item.name}
+                      items={item.items}
+                      isScrolled={isScrolled}
+                    />
+                  </motion.div>
+                )
+              }
+              
+              return (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e as any, item.href)}
+                    className="px-4 py-2 rounded-lg font-medium text-white hover:bg-white/20 transition-all duration-300"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              )
+            })}
+            
+            {/* WhatsApp Button */}
+            <motion.a
+              href="https://wa.me/919367936768"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium bg-green-500 hover:bg-green-600 text-white transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <MessageCircle size={20} />
+              <span>WhatsApp</span>
+            </motion.a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenu(!isMobileMenuOpen)}
+            className="md:hidden p-1.5 rounded-lg text-white"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white/95 backdrop-blur-md border-t"
+            style={{ marginTop: '4rem' }}
+          >
+            <div className="px-3 py-3 space-y-2">
+              {navItems.map((item) => (
+                <div key={item.name} className="space-y-1.5">
+                  {item.isDropdown && item.items ? (
+                    <>
+                      <button
+                        onClick={() =>
+                          setOpenDropdown(openDropdown === item.name ? null : item.name)
+                        }
+                        className="w-full flex items-center justify-between px-4 py-2 text-left text-gray-900 rounded-lg hover:bg-gray-100"
+                      >
+                        <span className="font-medium">{item.name}</span>
+                        <svg
+                          className={`w-5 h-5 transition-transform ${
+                            openDropdown === item.name ? 'rotate-180' : ''
+                          }`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                      <AnimatePresence>
+                        {openDropdown === item.name && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="pl-4 space-y-1 overflow-hidden"
+                          >
+                            {item.items.flat().map((subItem) => (
+                              <Link
+                                key={subItem.href}
+                                href={subItem.href}
+                                onClick={(e) => handleNavClick(e as any, subItem.href)}
+                                className="block px-4 py-2 text-gray-700 rounded-lg hover:bg-gray-100"
+                              >
+                                {subItem.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e as any, item.href)}
+                      className="block px-4 py-2 text-gray-900 rounded-lg hover:bg-gray-100 font-medium"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
+              ))}
+              <div className="pt-2">
+                <a
+                  href="https://wa.me/919367936768"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-colors"
+                >
+                  <MessageCircle size={20} />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  )
+}
+
+export default Navbar
