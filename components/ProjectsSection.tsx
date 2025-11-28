@@ -126,11 +126,11 @@ export default function ProjectsSection() {
                   <div className="group relative overflow-visible rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer hover:z-10 hover:scale-105 origin-center border-4 border-white/30 backdrop-blur-sm bg-white/10">
                     <div className="relative h-96 overflow-hidden rounded-t-xl">
                       <Image
-                        src={`/project_scrolling/${project.image}`}
+                        src={`/project_scrolling/${project.images[0]}`}
                         alt={project.name}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-fill transition-transform duration-500 group-hover:scale-105"
                         priority={index < 6}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">

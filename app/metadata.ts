@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
-const siteUrl = 'https://vetri-reals.vercel.app'; // Replace with your actual domain
-const siteName = 'Vetri Reals';
-const siteDescription = 'Leading property developer in Chengalpattu with premium plots and villas near Mahindra World City';
-const defaultTitle = 'Vetri Reals - Premium Plots & Villas in Chengalpattu';
+const siteUrl = 'https://www.svrassociates.com'; // Updated to likely production domain or placeholder
+const siteName = 'SVR Associates';
+const siteDescription = 'Premium residential plot developers in Tamil Nadu offering government-approved plots in Chengalpattu, Vandavasi, Salem and surrounding areas.';
+const defaultTitle = 'SVR Associates - Premium Plots in Tamil Nadu | Chengalpattu, Vandavasi, Salem';
 
 const defaultMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -13,20 +13,55 @@ const defaultMetadata: Metadata = {
   },
   description: siteDescription,
   keywords: [
+    // Primary Locations
     'plots in Chengalpattu',
-    'land near Chengalpattu',
-    'Chengalpattu plots',
+    'plots in Vandavasi',
+    'plots in Salem',
+    'plots in Tamil Nadu',
+    'real estate Tamil Nadu',
+
+    // Specific Areas
+    'plots near Mahindra City',
     'plots near Mahindra World City',
-    'residential plots',
+    'plots in Mamandur',
+    'plots in Sunguvarchatram',
+    'plots in Walajabad',
+    'plots in Arakkonam',
+    'plots in Uthiramerur',
+    'plots in Maduranthagam',
+    'plots in Tindivanam',
+    'plots in Thiruvannamalai',
+    'plots in Gingee',
+    'plots in Arani',
+    'plots in Polur',
+    'plots in Cheyyar',
+    'plots in Kanchipuram',
+    'plots in Sriperumbudur',
+    'plots in Oragadam',
+    'plots in Padappai',
+    'plots in Guduvanchery',
+    'plots in Singaperumal Koil',
+    'plots in Maraimalai Nagar',
+
+    // Project Types
+    'residential plots for sale',
+    'villa plots',
     'gated community plots',
-    'Vetri Reals',
-    'real estate Chengalpattu',
-    'affordable plots',
-    'best plots in Chengalpattu',
+    'DTCP approved plots',
+    'RERA approved plots',
+    'CMDA approved plots',
+    'investment plots',
+    'land for sale',
+    'buy land in Tamil Nadu',
+
+    // Brand
+    'SVR Associates',
+    'SVR Real Estate',
+    'Vetri Reals', // Keeping as alias if needed
   ],
-  authors: [{ name: 'Vetri Reals' }],
-  creator: 'Vetri Reals',
-  publisher: 'Vetri Reals',
+  authors: [{ name: 'SVR Associates' }],
+  creator: 'SVR Associates',
+  publisher: 'SVR Associates',
   formatDetection: {
     email: false,
     address: false,
@@ -41,10 +76,10 @@ const defaultMetadata: Metadata = {
     siteName: siteName,
     images: [
       {
-        url: `${siteUrl}/og-image.jpg`,
+        url: `${siteUrl}/logo/logo.jpg`, // Assuming logo path
         width: 1200,
         height: 630,
-        alt: 'Vetri Reals - Premium Plots & Villas',
+        alt: 'SVR Associates - Premium Plots in Tamil Nadu',
       },
     ],
   },
@@ -52,8 +87,8 @@ const defaultMetadata: Metadata = {
     card: 'summary_large_image',
     title: defaultTitle,
     description: siteDescription,
-    images: [`${siteUrl}/og-image.jpg`],
-    creator: '@vetri_reals',
+    images: [`${siteUrl}/logo/logo.jpg`],
+    creator: '@svrassociates',
   },
   robots: {
     index: true,
@@ -66,13 +101,75 @@ const defaultMetadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE',
-    yandex: 'YANDEX_VERIFICATION_CODE',
-  },
   alternates: {
     canonical: siteUrl,
   },
+};
+
+export const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: 'SVR Associates',
+  description: siteDescription,
+  url: siteUrl,
+  logo: `${siteUrl}/logo/logo.jpg`,
+  image: `${siteUrl}/logo/logo.jpg`,
+  telephone: '+91-9367936768', // From contact info
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Chengalpattu',
+    addressRegion: 'Tamil Nadu',
+    addressCountry: 'IN'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '12.6961', // Chengalpattu approx
+    longitude: '79.9756'
+  },
+  priceRange: '₹₹',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+      ],
+      opens: '09:00',
+      closes: '20:00'
+    }
+  ],
+  founder: {
+    '@type': 'Person',
+    name: 'Dr. L. Velayutham',
+    jobTitle: 'Founder & Managing Director'
+  },
+  areaServed: [
+    {
+      '@type': 'City',
+      name: 'Chengalpattu'
+    },
+    {
+      '@type': 'City',
+      name: 'Vandavasi'
+    },
+    {
+      '@type': 'City',
+      name: 'Salem'
+    },
+    {
+      '@type': 'City',
+      name: 'Kanchipuram'
+    },
+    {
+      '@type': 'City',
+      name: 'Tindivanam'
+    }
+  ]
 };
 
 export default defaultMetadata;
