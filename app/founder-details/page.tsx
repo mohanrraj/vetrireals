@@ -210,37 +210,37 @@ export default function FounderDetails() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative overflow-hidden rounded-3xl mb-16 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"
+            className="relative rounded-3xl mb-16 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"
           >
             {/* Animated Background Elements */}
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden rounded-3xl">
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9Ii9yZ2JhKDE1MywxNjIsMjQ4LDAuMSkiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIwOS0xLjc5MS00LTQtNHMtNCAxLjc5MS00IDQgMS43OTEgNCA0IDQgNC0xLjc5MSA0LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')]"></div>
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent"></div>
             </div>
             
             <div className="relative z-10 max-w-6xl mx-auto p-8 md:p-12">
-              <div className="flex flex-col lg:flex-row items-center gap-12">
+              <div className="flex flex-col lg:flex-row items-start gap-12">
                 {/* Image Container */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="relative w-full lg:w-2/6 h-[34rem] rounded-2xl overflow-hidden transform transition-all duration-700 hover:shadow-2xl hover:shadow-purple-200/50 flex-shrink-0"
-            
+                  className="relative w-full lg:w-2/6 lg:sticky lg:top-24 self-start flex-shrink-0"
                 >
-                  {/* above class removed shadow-2xl */}
-                  <Image 
-                    src="/founder/owner.png" 
-                    alt="Dr. L. Velayutham" 
-                    fill 
-                    className="object-fit" 
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-                    <div>
-                      <p className="text-white text-xl font-semibold">MJF.Ln.Dr. L. Velayutham MBA,ML,Ph.D</p>
-                      <p className="text-white/90 text-sm">Founder & Visionary</p>
+                  <div className="relative h-[34rem] rounded-2xl overflow-hidden transform transition-all duration-700 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 bg-[length:400%_400%] animate-[gradientFlow_6s_ease_infinite]">
+                    <Image 
+                      src="/founder/owner.png" 
+                      alt="Dr. L. Velayutham" 
+                      fill 
+                      className="object-cover mix-blend-multiply" 
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                      <div>
+                        <p className="text-white text-xl font-semibold">MJF.Ln.Dr. L. Velayutham MBA,ML,Ph.D</p>
+                        <p className="text-white/90 text-sm">Founder & Visionary</p>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

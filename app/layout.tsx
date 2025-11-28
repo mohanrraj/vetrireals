@@ -30,7 +30,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen w-full overflow-x-hidden">
-        <div className="w-full max-w-[100vw] overflow-hidden">
+        <div className="w-full max-w-[100vw] overflow-x-hidden">
           {children}
         </div>
       </body>
