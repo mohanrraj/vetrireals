@@ -2,10 +2,16 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { Play } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 
-const videos = [
+interface Video {
+  title: string;
+  subtitle: string;
+  url: string;
+  embedId: string;
+}
+
+const videos: Video[] = [
   {
     title: 'Siddhar Nagar',
     subtitle: 'Muthumala Murugan Temple Salem',
@@ -30,9 +36,52 @@ export default function VideoSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.1 })
 
+  const playersRef = useRef<YT.Player[]>([])
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return; // Skip during SSR
+    
+    // Check if script is already added
+    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+      const tag = document.createElement('script')
+      tag.src = 'https://www.youtube.com/iframe_api'
+      document.body.appendChild(tag)
+    }
+
+    // When API is ready, create players
+    const onYouTubeIframeAPIReady = () => {
+      playersRef.current = videos.map((video, index) => {
+        return new YT.Player(`player-${index}`, {
+          events: {
+            onStateChange: (event: YT.OnStateChangeEvent) => handlePlay(event, index)
+          }
+        })
+      })
+    }
+
+    // Assign to window if it doesn't exist yet
+    if (!(window as any).onYouTubeIframeAPIReady) {
+      (window as any).onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+    } else if (window.YT && window.YT.Player) {
+      // If YT is already loaded, call it directly
+      onYouTubeIframeAPIReady();
+    }
+  }, [])
+
+  const handlePlay = (event: YT.OnStateChangeEvent, currentIndex: number) => {
+    if (event.data === YT.PlayerState.PLAYING) {
+      playersRef.current.forEach((player, idx) => {
+        if (idx !== currentIndex && player && typeof player.pauseVideo === 'function') {
+          player.pauseVideo();
+        }
+      });
+    }
+  }
+
   return (
     <section ref={ref} className="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -60,7 +109,8 @@ export default function VideoSection() {
               <div className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                 <div className="relative aspect-video bg-gray-800">
                   <iframe
-                    src={`https://www.youtube.com/embed/${video.embedId}`}
+                    id={`player-${index}`}
+                    src={`https://www.youtube.com/embed/${video.embedId}?enablejsapi=1`}
                     title={video.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -79,6 +129,7 @@ export default function VideoSection() {
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   )

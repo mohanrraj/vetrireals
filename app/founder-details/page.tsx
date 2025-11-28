@@ -210,7 +210,7 @@ export default function FounderDetails() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative rounded-3xl mb-16 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"
+            className="relative rounded-3xl bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"
           >
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden rounded-3xl">
@@ -220,20 +220,26 @@ export default function FounderDetails() {
             </div>
             
             <div className="relative z-10 max-w-6xl mx-auto p-8 md:p-12">
-              <div className="flex flex-col lg:flex-row items-start gap-12">
+              <div className="relative flex flex-col lg:flex-row items-start gap-12">
                 {/* Image Container */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="relative w-full lg:w-2/6 lg:sticky lg:top-24 self-start flex-shrink-0"
+                  className="sticky top-24 w-full lg:w-2/6 self-start flex-shrink-0"
+                  style={{
+                    maxHeight: 'calc(100vh - 8rem)', // Maximum height based on viewport
+                    alignSelf: 'flex-start',
+                    minHeight: '500px', // Minimum height to ensure visibility
+                  }}
                 >
-                  <div className="relative h-[34rem] rounded-2xl overflow-hidden transform transition-all duration-700 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 bg-[length:400%_400%] animate-[gradientFlow_6s_ease_infinite]">
+                  <div className="relative w-full h-full">
                     <Image 
                       src="/founder/owner.png" 
                       alt="Dr. L. Velayutham" 
-                      fill 
-                      className="object-cover mix-blend-multiply" 
+                      width={500}
+                      height={700}
+                      className="w-full h-full object-contain rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.01]" 
                       priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
@@ -250,7 +256,7 @@ export default function FounderDetails() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
-                  className="w-full"
+                  className="w-full lg:w-4/6 lg:pl-8"
                 >
                   <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
                     <motion.h2 
@@ -305,7 +311,7 @@ export default function FounderDetails() {
                         <blockquote className="text-xl italic font-medium leading-relaxed">
                           "Transforming dreams into reality through integrity, innovation, and sustainable development"
                         </blockquote>
-                        <p className="mt-4 text-lg font-semibold">- Dr. L. Velayutham</p>
+                        <p className="mt-4 text-lg font-semibold">- MJF.Ln.Dr. L. Velayutham MBA,ML,Ph.D</p>
                         <p className="text-white/90 text-sm">Founder & Managing Director</p>
                       </div>
                     </motion.div>
@@ -433,7 +439,7 @@ export default function FounderDetails() {
               that help every family realize their dreams. We are committed to building not just homes, but communities
               where people can thrive, grow, and create lasting memories."
             </p>
-            <p className="text-center mt-6 text-xl font-semibold">- Dr. L. Velayutham</p>
+            <p className="text-center mt-6 text-xl font-semibold">- MJF.Ln.Dr. L. Velayutham MBA,ML,Ph.D</p>
           </motion.div>
 
           {/* Navigation Buttons */}

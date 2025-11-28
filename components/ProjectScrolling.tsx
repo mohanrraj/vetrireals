@@ -48,10 +48,8 @@ export default function ProjectScrolling() {
           {[...projects, ...projects].map((project, index) => (
             <motion.div
               key={`project-${index}`}
-              className="flex-shrink-0 w-64 h-36 sm:w-72 sm:h-44 md:w-80 md:h-52 mx-4 rounded-xl overflow-hidden shadow-2xl group relative cursor-pointer"
+              className="flex-shrink-0 w-64 h-36 sm:w-72 sm:h-44 md:w-80 md:h-52 mx-4 rounded-xl overflow-hidden shadow-2xl relative cursor-pointer"
               onClick={() => handleImageClick(index % projects.length)}
-              whileHover={{ scale: 1.03, zIndex: 10 }}
-              transition={{ duration: 0.3 }}
             >
               <div className="relative w-full h-full">
                 <Image
@@ -59,14 +57,9 @@ export default function ProjectScrolling() {
                   alt={`Project ${(index % projects.length) + 1}`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover"
                   priority={index < 5} // Only load first 5 images with priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <span className="text-white font-semibold text-lg">
-                    Project {(index % projects.length) + 1}
-                  </span>
-                </div>
               </div>
             </motion.div>
           ))}

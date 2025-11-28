@@ -32,7 +32,7 @@ export default function FounderSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex justify-center"
           >
-            <div className="relative w-80 h-80 rounded-2xl overflow-hidden shadow-2xl animated-border">
+            <div className="relative w-80 h-96 rounded-2xl overflow-hidden shadow-2xl animated-border">
               <Image
                 src="/founder/owner1.png"
                 alt="Dr. L. Velayutham - Founder"
