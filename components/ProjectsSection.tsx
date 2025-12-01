@@ -97,33 +97,24 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
           <div className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500 animate-pulse-glow`}></div>
 
           {/* Main card */}
-          <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-            {/* Image container */}
+          <div className="relative bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            {/* Image container - No zoom, No overlay */}
             <div className="relative h-72 overflow-hidden">
-              <motion.div
-                animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="w-full h-full"
-              >
-                <Image
-                  src={`/project_scrolling/${project.images[0]}`}
-                  alt={project.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover"
-                  priority={index < 6}
-                />
-              </motion.div>
+              <Image
+                src={`/project_scrolling/${project.images[0]}`}
+                alt={project.name}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+                priority={index < 6}
+              />
 
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
-
-              {/* Floating status badge */}
+              {/* Floating status badge - Hidden on mobile */}
               <motion.div
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3 + index * 0.1 }}
-                className="absolute top-4 right-4 z-10"
+                className="absolute top-4 right-4 z-10 hidden md:block"
               >
                 <div className="glass-dark px-3 py-1.5 rounded-full flex items-center space-x-2 border border-white/20">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
@@ -131,39 +122,17 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
                 </div>
               </motion.div>
 
-              {/* Location badge */}
+              {/* Location badge - Hidden on mobile */}
               <motion.div
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.4 + index * 0.1 }}
-                className="absolute top-4 left-4 z-10"
+                className="absolute top-4 left-4 z-10 hidden md:block"
               >
                 <div className="glass-dark px-3 py-1.5 rounded-full flex items-center space-x-2 border border-white/20">
                   <MapPin className="w-3 h-3 text-yellow-400" />
                   <span className="text-white text-xs font-semibold">{project.location}</span>
                 </div>
-              </motion.div>
-
-              {/* Hover overlay with details */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
-                className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6"
-              >
-                <motion.div
-                  initial={{ y: 20 }}
-                  animate={isHovered ? { y: 0 } : { y: 20 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <div className="flex items-center space-x-2 text-white/80 text-sm mb-2">
-                    <Home className="w-4 h-4" />
-                    <span>{project.plotSize}</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-white/80 text-sm">
-                    <TrendingUp className="w-4 h-4" />
-                    <span>{project.price}</span>
-                  </div>
-                </motion.div>
               </motion.div>
             </div>
 

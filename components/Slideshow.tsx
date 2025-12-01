@@ -281,62 +281,18 @@ export default function Slideshow() {
             </div>
           ) : (
             <>
-              {/* Split Screen Layout - Image on Right, Text on Left */}
-              <div className="absolute inset-0 flex flex-col md:flex-row">
-                {/* Left Side - Text Content with Semi-Transparent Background */}
-                <div className="w-full md:w-1/2 relative flex items-center justify-center p-4 md:p-8 lg:p-16 bg-gradient-to-br from-gray-900/80 via-gray-800/70 to-black/80 backdrop-blur-sm">
-                  {/* Animated decorative elements */}
-                  <div className="absolute top-10 left-10 w-20 h-20 border-4 border-yellow-400/30 rounded-full animate-pulse"></div>
-                  <div className="absolute bottom-10 right-10 w-32 h-32 border-4 border-yellow-400/20 rounded-full animate-spin-slow"></div>
-
-                  <div className="relative z-10 max-w-2xl">
-                    {/* Circle Animation Container */}
-                    <div className="relative inline-block">
-                      <CircleAnimation delay={0.3} />
-
-                      {/* Text Content - No Background */}
-                      <div className="relative p-8 md:p-12">
-                        {slides[currentSlide].text?.map((line, index) => (
-                          <motion.div
-                            key={index}
-                            initial={{ x: -50, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{
-                              delay: 0.6 + index * 0.1,
-                              duration: 0.6,
-                              type: "spring",
-                              stiffness: 100
-                            }}
-                          >
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 drop-shadow-2xl leading-tight">
-                              {line}
-                            </h2>
-                          </motion.div>
-                        ))}
-
-                        {/* Decorative underline */}
-                        <motion.div
-                          className="mt-6 h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-transparent rounded-full"
-                          initial={{ scaleX: 0 }}
-                          animate={{ scaleX: 1 }}
-                          transition={{ delay: 1.2, duration: 0.8 }}
-                          style={{ transformOrigin: 'left' }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Side - Image with Ken Burns Effect */}
-                <div className="w-full md:w-1/2 relative overflow-hidden">
+              {/* Mobile Layout - Full Image with Text Overlay */}
+              {isMobile ? (
+                <div className="absolute inset-0">
+                  {/* Full Background Image */}
                   <motion.div
-                    initial={{ scale: 1.2, x: 100 }}
-                    animate={{ scale: 1, x: 0 }}
+                    initial={{ scale: 1.2 }}
+                    animate={{ scale: 1 }}
                     transition={{ duration: 20, ease: "linear" }}
                     className="w-full h-full"
                   >
                     <Image
-                      src={isMobile && slides[currentSlide].mobileImage ? slides[currentSlide].mobileImage! : slides[currentSlide].image!}
+                      src={slides[currentSlide].mobileImage || slides[currentSlide].image!}
                       alt={`Slide ${currentSlide + 1}`}
                       fill
                       className="object-cover"
@@ -344,24 +300,121 @@ export default function Slideshow() {
                     />
                   </motion.div>
 
-                  {/* Lighter gradient overlay for better image visibility */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
+                  {/* Dark overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-                  {/* Decorative corner elements */}
-                  <motion.div
-                    className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-yellow-400/50"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8, duration: 0.6 }}
-                  />
-                  <motion.div
-                    className="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-yellow-400/50"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1, duration: 0.6 }}
-                  />
+                  {/* Text Content at Bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 pb-20">
+                    {slides[currentSlide].text?.map((line, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ y: 30, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          delay: 0.3 + index * 0.1,
+                          duration: 0.6,
+                          type: "spring"
+                        }}
+                      >
+                        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-2xl leading-tight">
+                          {line}
+                        </h2>
+                      </motion.div>
+                    ))}
+
+                    {/* Decorative underline */}
+                    <motion.div
+                      className="mt-4 h-1 w-24 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ delay: 0.8, duration: 0.6 }}
+                      style={{ transformOrigin: 'left' }}
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                /* Desktop Split Screen Layout - Image on Right, Text on Left */
+                <div className="absolute inset-0 flex flex-col md:flex-row">
+                  {/* Left Side - Text Content with Semi-Transparent Background */}
+                  <div className="w-full md:w-1/2 relative flex items-center justify-center p-4 md:p-8 lg:p-16 bg-gradient-to-br from-gray-900/80 via-gray-800/70 to-black/80 backdrop-blur-sm">
+                    {/* Animated decorative elements */}
+                    <div className="absolute top-10 left-10 w-20 h-20 border-4 border-yellow-400/30 rounded-full animate-pulse"></div>
+                    <div className="absolute bottom-10 right-10 w-32 h-32 border-4 border-yellow-400/20 rounded-full animate-spin-slow"></div>
+
+                    <div className="relative z-10 max-w-2xl">
+                      {/* Circle Animation Container */}
+                      <div className="relative inline-block">
+                        <CircleAnimation delay={0.3} />
+
+                        {/* Text Content - No Background */}
+                        <div className="relative p-8 md:p-12">
+                          {slides[currentSlide].text?.map((line, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ x: -50, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{
+                                delay: 0.6 + index * 0.1,
+                                duration: 0.6,
+                                type: "spring",
+                                stiffness: 100
+                              }}
+                            >
+                              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 drop-shadow-2xl leading-tight">
+                                {line}
+                              </h2>
+                            </motion.div>
+                          ))}
+
+                          {/* Decorative underline */}
+                          <motion.div
+                            className="mt-6 h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-transparent rounded-full"
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ delay: 1.2, duration: 0.8 }}
+                            style={{ transformOrigin: 'left' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Side - Image with Ken Burns Effect */}
+                  <div className="w-full md:w-1/2 relative overflow-hidden">
+                    <motion.div
+                      initial={{ scale: 1.2, x: 100 }}
+                      animate={{ scale: 1, x: 0 }}
+                      transition={{ duration: 20, ease: "linear" }}
+                      className="w-full h-full"
+                    >
+                      <Image
+                        src={slides[currentSlide].image!}
+                        alt={`Slide ${currentSlide + 1}`}
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                    </motion.div>
+
+                    {/* Lighter gradient overlay for better image visibility */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
+
+                    {/* Decorative corner elements */}
+                    <motion.div
+                      className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-yellow-400/50"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.8, duration: 0.6 }}
+                    />
+                    <motion.div
+                      className="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-yellow-400/50"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 1, duration: 0.6 }}
+                    />
+                  </div>
+                </div>
+              )}
             </>
           )}
 
