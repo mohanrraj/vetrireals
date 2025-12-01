@@ -10,6 +10,7 @@ export interface Project {
   status: string;
   images: string[];
   amenities: string[];
+  locationIframe?: string; // Optional Google Maps iframe URL
   highlights: {
     label: string;
     value: string;
@@ -47,6 +48,9 @@ const defaultAmenities = [
   'Avenue trees front car-Parking',
   "Children's Play Area"
 ];
+
+// Default location iframe (can be customized per project)
+const defaultLocationIframe = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0!2d80.0!3d13.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDAwJzAwLjAiTiA4MMKwMDAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890';
 
 export const projects: Project[] = [
   {
