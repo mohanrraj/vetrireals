@@ -283,8 +283,8 @@ export default function Slideshow() {
             <>
               {/* Split Screen Layout - Image on Right, Text on Left */}
               <div className="absolute inset-0 flex flex-col md:flex-row">
-                {/* Left Side - Text Content */}
-                <div className="w-full md:w-1/2 relative flex items-center justify-center p-4 md:p-8 lg:p-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+                {/* Left Side - Text Content with Semi-Transparent Background */}
+                <div className="w-full md:w-1/2 relative flex items-center justify-center p-4 md:p-8 lg:p-16 bg-gradient-to-br from-gray-900/80 via-gray-800/70 to-black/80 backdrop-blur-sm">
                   {/* Animated decorative elements */}
                   <div className="absolute top-10 left-10 w-20 h-20 border-4 border-yellow-400/30 rounded-full animate-pulse"></div>
                   <div className="absolute bottom-10 right-10 w-32 h-32 border-4 border-yellow-400/20 rounded-full animate-spin-slow"></div>
@@ -344,8 +344,8 @@ export default function Slideshow() {
                     />
                   </motion.div>
 
-                  {/* Gradient overlay for better blend */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+                  {/* Lighter gradient overlay for better image visibility */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
 
                   {/* Decorative corner elements */}
                   <motion.div
@@ -372,8 +372,8 @@ export default function Slideshow() {
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 className={`relative rounded-full transition-all duration-300 ${index === currentSlide
-                    ? 'bg-yellow-400 w-12 h-3 shadow-lg shadow-yellow-400/50'
-                    : 'bg-white/50 hover:bg-white/75 w-3 h-3 hover-scale'
+                  ? 'bg-yellow-400 w-12 h-3 shadow-lg shadow-yellow-400/50'
+                  : 'bg-white/50 hover:bg-white/75 w-3 h-3 hover-scale'
                   }`}
               >
                 {index === currentSlide && (
