@@ -231,54 +231,81 @@ export default function UpcomingProjects() {
       <Navbar />
 
       {/* Hero Section with Timer */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12">
-        <div className="container mx-auto px-4">
+      <div className="relative gradient-rotate bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white py-12 overflow-hidden">
+        {/* Floating Particles */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="particle" style={{ width: '100px', height: '100px', left: '10%', top: '20%', animationDelay: '0s' }} />
+          <div className="particle" style={{ width: '150px', height: '150px', left: '80%', top: '40%', animationDelay: '2s' }} />
+          <div className="particle" style={{ width: '80px', height: '80px', left: '50%', top: '60%', animationDelay: '4s' }} />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-8">
             <motion.h1
-              className="text-4xl md:text-5xl font-bold mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg"
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, type: "spring" }}
             >
               Upcoming Project
             </motion.h1>
             <motion.p
-              className="text-xl mb-8 max-w-2xl mx-auto"
+              className="text-xl mb-8 max-w-2xl mx-auto drop-shadow-md"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
               Be the first to know about our exciting new development in Chennai
             </motion.p>
 
-            {/* Countdown Timer */}
+            {/* Countdown Timer with Flip Animation */}
             <motion.div
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              className="glass rounded-xl p-6 max-w-2xl mx-auto border border-white/30 shadow-2xl hover-lift"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3, type: "spring" }}
             >
-              <h3 className="text-2xl font-semibold mb-4">Launching In</h3>
+              <h3 className="text-2xl font-semibold mb-4 animate-pulse-glow">Launching In</h3>
               <div className="flex justify-center space-x-4 md:space-x-8">
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold">{timeLeft.days}</div>
-                  <div className="text-sm md:text-base">Days</div>
-                </div>
-                <div className="text-4xl md:text-5xl font-bold">:</div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold">{timeLeft.hours.toString().padStart(2, '0')}</div>
-                  <div className="text-sm md:text-base">Hours</div>
-                </div>
-                <div className="text-4xl md:text-5xl font-bold">:</div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold">{timeLeft.minutes.toString().padStart(2, '0')}</div>
-                  <div className="text-sm md:text-base">Minutes</div>
-                </div>
-                <div className="text-4xl md:text-5xl font-bold">:</div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold">{timeLeft.seconds.toString().padStart(2, '0')}</div>
-                  <div className="text-sm md:text-base">Seconds</div>
-                </div>
+                <motion.div
+                  className="text-center"
+                  initial={{ rotateX: 90, opacity: 0 }}
+                  animate={{ rotateX: 0, opacity: 1 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                >
+                  <div className="text-4xl md:text-5xl font-bold bg-white/20 rounded-lg px-4 py-2 backdrop-blur-sm">{timeLeft.days}</div>
+                  <div className="text-sm md:text-base mt-2">Days</div>
+                </motion.div>
+                <div className="text-4xl md:text-5xl font-bold self-center">:</div>
+                <motion.div
+                  className="text-center"
+                  initial={{ rotateX: 90, opacity: 0 }}
+                  animate={{ rotateX: 0, opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                >
+                  <div className="text-4xl md:text-5xl font-bold bg-white/20 rounded-lg px-4 py-2 backdrop-blur-sm">{timeLeft.hours.toString().padStart(2, '0')}</div>
+                  <div className="text-sm md:text-base mt-2">Hours</div>
+                </motion.div>
+                <div className="text-4xl md:text-5xl font-bold self-center">:</div>
+                <motion.div
+                  className="text-center"
+                  initial={{ rotateX: 90, opacity: 0 }}
+                  animate={{ rotateX: 0, opacity: 1 }}
+                  transition={{ delay: 0.7, duration: 0.5 }}
+                >
+                  <div className="text-4xl md:text-5xl font-bold bg-white/20 rounded-lg px-4 py-2 backdrop-blur-sm">{timeLeft.minutes.toString().padStart(2, '0')}</div>
+                  <div className="text-sm md:text-base mt-2">Minutes</div>
+                </motion.div>
+                <div className="text-4xl md:text-5xl font-bold self-center">:</div>
+                <motion.div
+                  className="text-center"
+                  initial={{ rotateX: 90, opacity: 0 }}
+                  animate={{ rotateX: 0, opacity: 1 }}
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                >
+                  <div className="text-4xl md:text-5xl font-bold bg-white/20 rounded-lg px-4 py-2 backdrop-blur-sm animate-pulse">{timeLeft.seconds.toString().padStart(2, '0')}</div>
+                  <div className="text-sm md:text-base mt-2">Seconds</div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -287,10 +314,19 @@ export default function UpcomingProjects() {
 
       {/* Project Showcase */}
       <div className="container mx-auto px-4 py-16">
-        <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <motion.div
+          className="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden hover-lift"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <div className="md:flex">
-            {/* Project Image */}
-            <div className="md:w-1/2 relative">
+            {/* Project Image with Hover Effect */}
+            <motion.div
+              className="md:w-1/2 relative image-zoom overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="h-full w-full bg-gray-200">
                 <div className="relative w-full h-full">
                   <Image
@@ -298,7 +334,7 @@ export default function UpcomingProjects() {
                     alt={currentProject.title}
                     width={800}
                     height={600}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = 'https://placehold.co/800x600/1e3a8a/ffffff?text=Project+Image';
@@ -307,71 +343,110 @@ export default function UpcomingProjects() {
                 </div>
               </div>
 
-              {/* Project Image Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+              {/* Project Image Overlay with Animation */}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
                 <div className="text-white">
                   <h3 className="text-lg font-semibold">Launching Soon</h3>
                   <p className="text-sm">Register your interest today</p>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Project Details */}
+            {/* Project Details with Stagger Animation */}
             <div className="p-8 md:w-1/2">
-              <div className="flex justify-between items-start mb-6">
+              <motion.div
+                className="flex justify-between items-start mb-6"
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
                 <div>
                   <h2 className="text-3xl font-bold text-gray-900 mb-2">{currentProject.title}</h2>
                   <div className="flex items-center text-gray-600 mb-4">
-                    <MapPin className="w-5 h-5 mr-1" />
+                    <MapPin className="w-5 h-5 mr-1 animate-bounce" />
                     <span>{currentProject.location}</span>
                   </div>
                 </div>
-                <div className="text-right">
+                <motion.div
+                  className="text-right"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.7, type: "spring" }}
+                >
                   <div className="text-sm text-gray-500">Starting at</div>
-                  <div className="text-2xl font-bold text-indigo-600">{currentProject.price}</div>
-                </div>
-              </div>
+                  <div className="text-2xl font-bold text-indigo-600 animate-pulse-glow">{currentProject.price}</div>
+                </motion.div>
+              </motion.div>
 
-              <p className="text-gray-700 mb-6">{currentProject.description}</p>
+              <motion.p
+                className="text-gray-700 mb-6"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
+                {currentProject.description}
+              </motion.p>
 
-              <div className="mb-8">
+              <motion.div
+                className="mb-8"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.7 }}
+              >
                 <h3 className="text-lg font-semibold mb-3">Key Features</h3>
                 <div className="grid grid-cols-2 gap-2">
                   {currentProject.features.map((feature, index) => (
-                    <div key={index} className="flex items-center">
-                      <div className="w-2 h-2 bg-indigo-500 rounded-full mr-2"></div>
+                    <motion.div
+                      key={index}
+                      className="flex items-center"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.8 + index * 0.1 }}
+                    >
+                      <div className="w-2 h-2 bg-indigo-500 rounded-full mr-2 animate-pulse"></div>
                       <span className="text-gray-700">{feature}</span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center justify-between">
+              <motion.div
+                className="flex items-center justify-between"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.9 }}
+              >
                 <div className="flex items-center text-sm text-gray-500">
                   <Calendar className="w-4 h-4 mr-1" />
                   <span>Launch Date: {new Date(currentProject.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                 </div>
                 <button
                   onClick={() => setShowSubscribeForm(true)}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg flex items-center transition-colors"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg flex items-center transition-all hover-scale ripple shadow-lg"
                 >
                   Notify Me on Launch
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </button>
-              </div>
+              </motion.div>
 
-              {/* Subscription Form Modal */}
+              {/* Subscription Form Modal with Enhanced Animation */}
               {showSubscribeForm && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                   <motion.div
-                    className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 relative"
+                    initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 50 }}
+                    transition={{ type: "spring", duration: 0.5 }}
                   >
                     <button
                       onClick={() => setShowSubscribeForm(false)}
-                      className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                      className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover-scale"
                       disabled={subscriptionStatus === 'loading'}
                     >
                       <X className="w-6 h-6" />
@@ -386,7 +461,7 @@ export default function UpcomingProjects() {
               )}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Project Navigation */}
         <div className="flex justify-between mt-8">
